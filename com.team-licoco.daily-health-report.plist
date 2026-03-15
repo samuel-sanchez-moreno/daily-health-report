@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.team-licoco.daily-health-report</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/local/bin/npx</string>
+        <string>tsx</string>
+        <string>src/index.ts</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/samuel.sanchez-moreno/workspace/team-licoco/daily-health-report</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/usr/local/bin:/usr/bin:/bin:/opt/homebrew/bin</string>
+        <!-- Set your Slack webhook URL here -->
+        <!-- <key>SLACK_WEBHOOK_URL</key> -->
+        <!-- <string>https://hooks.slack.com/services/YOUR/WEBHOOK/URL</string> -->
+    </dict>
+
+    <!-- Run Monday through Friday at 09:00 local time -->
+    <key>StartCalendarInterval</key>
+    <array>
+        <dict>
+            <key>Weekday</key>
+            <integer>1</integer>
+            <key>Hour</key>
+            <integer>9</integer>
+            <key>Minute</key>
+            <integer>0</integer>
+        </dict>
+        <dict>
+            <key>Weekday</key>
+            <integer>2</integer>
+            <key>Hour</key>
+            <integer>9</integer>
+            <key>Minute</key>
+            <integer>0</integer>
+        </dict>
+        <dict>
+            <key>Weekday</key>
+            <integer>3</integer>
+            <key>Hour</key>
+            <integer>9</integer>
+            <key>Minute</key>
+            <integer>0</integer>
+        </dict>
+        <dict>
+            <key>Weekday</key>
+            <integer>4</integer>
+            <key>Hour</key>
+            <integer>9</integer>
+            <key>Minute</key>
+            <integer>0</integer>
+        </dict>
+        <dict>
+            <key>Weekday</key>
+            <integer>5</integer>
+            <key>Hour</key>
+            <integer>9</integer>
+            <key>Minute</key>
+            <integer>0</integer>
+        </dict>
+    </array>
+
+    <key>StandardOutPath</key>
+    <string>/tmp/daily-health-report.stdout.log</string>
+    <key>StandardErrorPath</key>
+    <string>/tmp/daily-health-report.stderr.log</string>
+</dict>
+</plist>

@@ -1,0 +1,17 @@
+fetch events, from:now()-24h
+| filter event.kind == "SDLC_EVENT"
+| filter event.type == "execution.finished"
+| filter in(test.owner.name, array("{{team_owner}}"))
+| parse systemsUnderTest[0], "JSON:systemsUnderTest"
+| parse test.tags, "JSON:testTags"
+| fieldsAdd status = if(test_result.statusmessage == "Success",
+                        if(testTags[reruns] == "1", "Success", else: "Flaky"),
+                        else: test_result.statusmessage)
+| filter systemsUnderTest[sut.tags][tenantUrlStage] == "{{stage}}"
+| filter status == "Failed" or status == "Flaky"
+| dedup {formatTimestamp(timestamp, format:"MM-dd-yyyy"), test.name, test.origin_url},
+        sort: { timestamp desc }
+| fields timestamp, test.name, status, test_result.statusmessage,
+        test_execution.stacktrace, test.origin_url
+| sort timestamp desc
+| limit 30

@@ -1,0 +1,9 @@
+timeseries lag=max(kafka_consumergroup_lag, rollup: avg),
+  by: { consumergroup, topic, k8s.cluster.name, k8s.namespace.name },
+  filter: {
+    matchesValue(k8s.namespace.name, "{{kafka_namespace}}")
+    AND matchesValue(k8s.cluster.name, "{{cluster_name}}")
+    AND matchesPhrase(consumergroup, "{{consumer_group}}")
+  }
+| summarize maxLag=max(lag[]), by: { consumergroup, topic }
+| sort maxLag desc

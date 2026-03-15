@@ -1,0 +1,5 @@
+fetch dt.entity.cloud_application_instance
+| filter contains(entity.name, "{{deployment_name}}")
+| fields id, entity.name, lifetime
+| sort lifetime.start desc
+| limit 20

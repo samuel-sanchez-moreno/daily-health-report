@@ -1,0 +1,7 @@
+fetch events, from:now()-24h
+| filter event.type == "K8S_EVENT"
+  and contains(entity_name, "{{deployment_name}}")
+  and contains(event.name, "restart")
+| fields timestamp, event.name, entity_name
+| sort timestamp desc
+| limit 50

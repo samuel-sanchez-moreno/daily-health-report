@@ -1,0 +1,7 @@
+fetch logs, from:now()-24h
+| filter contains(k8s.deployment.name, "{{deployment_name}}")
+  and not contains(k8s.deployment.name, "mockserver")
+  and not contains(k8s.deployment.name, "migrator")
+| filter in(loglevel, array("ERROR", "WARN", "SEVERE"))
+| summarize cnt = count(), by:{loglevel}
+| sort cnt desc

@@ -1,0 +1,20 @@
+{
+  "name": "daily-health-report",
+  "version": "1.0.0",
+  "description": "Daily health report for team-licoco services across Dynatrace environments",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "report": "tsx src/index.ts"
+  },
+  "dependencies": {
+    "tsx": "^4.7.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "@types/node": "^20.11.0"
+  }
+}

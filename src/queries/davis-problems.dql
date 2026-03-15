@@ -1,0 +1,7 @@
+fetch events, from:now()-24h
+| filter contains(entity_name, "{{service_name}}")
+  or contains(entity_name, "{{deployment_name}}")
+| filter event.kind == "DAVIS_PROBLEM"
+| fields timestamp, event.name, event.type, entity_name
+| sort timestamp desc
+| limit 20

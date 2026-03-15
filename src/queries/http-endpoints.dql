@@ -1,0 +1,11 @@
+fetch spans, from:now()-24h
+| filter contains(k8s.deployment.name, "{{deployment_name}}")
+| filter span.kind == "SERVER"
+| summarize
+  median_ms = median(duration) / 1000000.0,
+  p95_ms = percentile(duration, 95) / 1000000.0,
+  cnt = count(),
+  errors_5xx = countIf(http.response.status_code >= 500),
+  by:{span.name}
+| sort cnt desc
+| limit 20
